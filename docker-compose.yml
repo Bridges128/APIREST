@@ -1,9 +1,19 @@
-version: '3.8'
 services:
+  mi-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tareasdb
+    volumes:
+      - datos-postgres:/var/lib/postgresql/data
+
   mi-api-backend:
     build: ./api-backend
     ports:
       - "5000:5000"
+    depends_on:
+      - mi-db
 
   mi-web-frontend:
     build: ./app-frontend
@@ -11,4 +21,6 @@ services:
       - "8082:80"
     depends_on:
       - mi-api-backend
-      
+
+volumes:
+  datos-postgres:

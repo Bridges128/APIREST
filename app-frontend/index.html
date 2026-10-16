@@ -11,6 +11,7 @@
     <h1>Mi Gestor de Tareas (Consumiendo API REST)</h1>
     <input type="text" id="inputTarea" placeholder="Escribe una nueva tarea...">
     <button onclick="agregarTarea()">Agregar Tarea</button>
+    <button onclick="vaciarLista()">Vaciar Lista de Tareas</button>
     <ul id="listaTareas"></ul>
 
     <script>
@@ -48,6 +49,11 @@
         async function eliminarTarea(id) {
             await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
             cargarTareas(); // Refrescar la vista
+        }
+
+        async function vaciarLista() {
+            await fetch(`${API_URL}/limpiar`, { method: 'DELETE' });
+            cargarTareas();
         }
 
         // Carga inicial
